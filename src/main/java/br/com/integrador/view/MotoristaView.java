@@ -5,6 +5,7 @@ import br.com.integrador.model.Motorista;
 import javax.swing.*;
 import java.util.List;
 
+
 public class MotoristaView {
 
     public char menu() {
@@ -13,6 +14,7 @@ public class MotoristaView {
                 "1 - INCLUIR\n" +
                 "2 - EXCLUIR\n" +
                 "3 - CONSULTAR\n" +
+                "4 - LISTAR\n" +
                 "0 - RETORNAR\n\n" +
                 "OPÇÃO: ";
 
@@ -21,10 +23,22 @@ public class MotoristaView {
 
     public Motorista incluir() {
         Motorista motorista = new Motorista();
+        String[] opcoes = {"Tipo B", "Tipo C"};
+        int opcaoCNH;
 
         motorista.setNome(JOptionPane.showInputDialog("Nome"));
         motorista.setEndereco(JOptionPane.showInputDialog("Endereço"));
-        motorista.setTipoCNH(JOptionPane.showInputDialog("Tipo da CNH"));
+        opcaoCNH = JOptionPane.showOptionDialog(
+                null,
+                "Escolha o tipo daCNH",
+                "CNH",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opcoes,
+                opcoes[0]
+        );
+        motorista.setTipoCNH(opcaoCNH);
         motorista.setNumeroCNH(Integer.parseInt(JOptionPane.showInputDialog("Número da CNH")));
         motorista.setDataNascimento(JOptionPane.showInputDialog("Data de nascimento"));
 
@@ -32,7 +46,7 @@ public class MotoristaView {
     }
 
     public String excluir() {
-        return JOptionPane.showInputDialog("Nome");
+        return consultar();
     }
 
     public String consultar() {

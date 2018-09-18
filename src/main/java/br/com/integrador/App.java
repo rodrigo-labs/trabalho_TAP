@@ -1,5 +1,6 @@
 package br.com.integrador;
 
+import br.com.integrador.exception.HabilitacaoInvalidaException;
 import br.com.integrador.model.Motorista;
 import br.com.integrador.model.Objeto;
 import br.com.integrador.model.Veiculo;
@@ -58,7 +59,6 @@ public class App {
 
     private static void emitirRota() {
 
-
     }
 
     private static void cadastroObjeto() {
@@ -79,22 +79,22 @@ public class App {
                     break;
 
                 case '2':
-                    codigoVerificador = view.confirmarEntrega();
-                    objeto = service.buscarPor(codigoVerificador);
-                    if (objeto == null) {
-                        JOptionPane.showMessageDialog(null, "OBJETO NÃO ENCONTRADO");
-                    } else {
-                        service.ConfirmarEntregaPor(codigoVerificador);
-                    }
-                    break;
-
-                case '3':
                     codigoVerificador = view.excluir();
                     objeto = service.buscarPor(codigoVerificador);
                     if (objeto == null) {
                         JOptionPane.showMessageDialog(null, "OBJETO NÃO ENCONTRADO");
                     } else {
                         service.remover(objeto);
+                    }
+                    break;
+
+                case '3':
+                    codigoVerificador = view.confirmarEntrega();
+                    objeto = service.buscarPor(codigoVerificador);
+                    if (objeto == null) {
+                        JOptionPane.showMessageDialog(null, "OBJETO NÃO ENCONTRADO");
+                    } else {
+                        service.ConfirmarEntregaPor(codigoVerificador);
                     }
                     break;
 
@@ -110,7 +110,11 @@ public class App {
 
                 case '5':
                     objetoList = service.listar();
-                    view.mostrarTodos(objetoList);
+                    if (objetoList.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "NENHUM OBJETO CADASTRADO");
+                    } else {
+                        view.mostrarTodos(objetoList);
+                    }
                     break;
 
                 case '0':
@@ -126,8 +130,8 @@ public class App {
     private static void cadastroMotorista() {
         MotoristaView view = new MotoristaView();
         MotoristaService service = MotoristaService.getNewInstance();
-        List<Motorista> motoristaList;
         Motorista motorista;
+        List<Motorista> motoristaList;
         String nome;
         char opcao;
 
@@ -161,7 +165,11 @@ public class App {
 
                 case '4':
                     motoristaList = service.listar();
-                    view.mostrarTodos(motoristaList);
+                    if (motoristaList.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "NENHUM MOTORISTA CADASTRADO");
+                    } else {
+                        view.mostrarTodos(motoristaList);
+                    }
                     break;
 
                 case '0':
@@ -177,9 +185,12 @@ public class App {
     private static void cadastroVeiculo() {
         VeiculoView view = new VeiculoView();
         VeiculoService service = VeiculoService.getNewInstance();
+        MotoristaService motoristaService = MotoristaService.getNewInstance();
         List<Veiculo> veiculoList;
         Veiculo veiculo;
+        Motorista motorista;
         String placa;
+        String nome;
         char opcao;
 
         do {
@@ -205,15 +216,40 @@ public class App {
                     placa = view.consultar();
                     veiculo = service.buscarPor(placa);
                     if (veiculo != null) {
+                        nome = view.selecionarMotorista();
+                        motorista = motoristaService.buscarPor(nome);
+                        if (motorista != null) {
+                            try {
+                                service.selecionarMotorista(motorista, veiculo);
+                            } catch (HabilitacaoInvalidaException ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "MOTORISTA NÃO ENCONTRADO");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "VEICULO NÃO ENCONTRADO");
+                    }
+
+                    break;
+
+                case '4':
+                    placa = view.consultar();
+                    veiculo = service.buscarPor(placa);
+                    if (veiculo != null) {
                         view.mostrar(veiculo);
                     } else {
                         JOptionPane.showMessageDialog(null, "VEICULO NÃO ENCONTRADO");
                     }
                     break;
 
-                case '4':
+                case '5':
                     veiculoList = service.listar();
-                    view.mostrarTodos(veiculoList);
+                    if (veiculoList.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "NENHUM VEICULO CADASTRADO");
+                    } else {
+                        view.mostrarTodos(veiculoList);
+                    }
                     break;
 
                 case '0':

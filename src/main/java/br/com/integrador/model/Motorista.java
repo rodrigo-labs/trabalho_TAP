@@ -1,10 +1,12 @@
 package br.com.integrador.model;
 
+import br.com.integrador.exception.HabilitacaoInvalidaException;
+
 public class Motorista {
 
     private String nome;
     private String endereco;
-    private String tipoCNH;
+    private CNH tipoCNH;
     private int numeroCNH;
     private String dataNascimento;
 
@@ -25,12 +27,20 @@ public class Motorista {
         this.endereco = endereco;
     }
 
-    public String getTipoCNH() {
+    public CNH getTipoCNH() {
         return tipoCNH;
     }
 
-    public void setTipoCNH(String tipoCNH) {
+    public void setTipoCNH(CNH tipoCNH) {
         this.tipoCNH = tipoCNH;
+    }
+
+    public void setTipoCNH(int tipoCNH) {
+        if (tipoCNH == 0) {
+            this.tipoCNH = CNH.TIPO_B;
+        } else {
+            this.tipoCNH = CNH.TIPO_C;
+        }
     }
 
     public int getNumeroCNH() {
@@ -48,6 +58,7 @@ public class Motorista {
     public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
+
 
     @Override
     public String toString() {

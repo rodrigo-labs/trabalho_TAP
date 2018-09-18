@@ -9,7 +9,7 @@ public class Objeto {
     private String dataDeposito;
     private Float peso;
     private String codigoLocalizador;
-    private Boolean entregue;
+    private ObjetoSituacao situacao;
 
 
     public String getNomeRemetente() {
@@ -68,12 +68,12 @@ public class Objeto {
         this.codigoLocalizador = codigoLocalizador;
     }
 
-    public Boolean getEntregue() {
-        return entregue;
+    public ObjetoSituacao getSituacao() {
+        return situacao;
     }
 
-    public void setEntregue(Boolean entregue) {
-        this.entregue = entregue;
+    public void setSituacao(ObjetoSituacao situacao) {
+        this.situacao = situacao;
     }
 
     @Override
@@ -87,7 +87,7 @@ public class Objeto {
         objeto.append("\nData do Depósito:          ").append(this.getDataDeposito());
         objeto.append("\nPeso:                      ").append(this.getPeso());
         objeto.append("\nCódigo Localizador:        ").append(this.getCodigoLocalizador());
-        objeto.append("\nEntregue:                  ").append(this.getEntregue());
+        objeto.append("\nObjetoSituacao do objeto:          ").append(this.getSituacao());
 
         return String.valueOf(objeto);
     }

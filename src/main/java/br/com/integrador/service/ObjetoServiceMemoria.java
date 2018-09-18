@@ -1,5 +1,6 @@
 package br.com.integrador.service;
 
+import br.com.integrador.model.ObjetoSituacao;
 import br.com.integrador.model.Objeto;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class ObjetoServiceMemoria implements ObjetoService {
     public void ConfirmarEntregaPor(String codigoLocalizador) {
         for (Objeto objeto: objetoList) {
             if (objeto.getCodigoLocalizador().equals(codigoLocalizador)) {
-                objeto.setEntregue(true);
+                objeto.setSituacao(ObjetoSituacao.ENTREGUE);
             }
         }
     }

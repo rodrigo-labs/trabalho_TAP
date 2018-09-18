@@ -1,5 +1,8 @@
 package br.com.integrador.model;
 
+import br.com.integrador.exception.CargaCompletaException;
+import br.com.integrador.exception.HabilitacaoInvalidaException;
+
 public abstract class Veiculo {
 
     private String marca;
@@ -7,7 +10,13 @@ public abstract class Veiculo {
     private String ano;
     private String placa;
     private int capacidade;
+    private int carga;
+    private Motorista motorista;
 
+
+    public Veiculo() {
+        this.carga = 0;
+    }
 
     public String getMarca() {
         return marca;
@@ -45,6 +54,28 @@ public abstract class Veiculo {
         return capacidade;
     }
 
+    public void setCapacidade(int capacidade) {
+        this.capacidade = capacidade;
+    }
+
+    public int getCarga() {
+        return carga;
+    }
+
+    public void setCarga() throws CargaCompletaException {
+        if (this.carga < this.capacidade) {
+            this.carga++;
+        } else {
+            throw new CargaCompletaException("CARGA COMPLETA");
+        }
+    }
+
+    public Motorista getMotorista() {
+        return motorista;
+    }
+
+    public abstract void setMotorista(Motorista motorista) throws HabilitacaoInvalidaException;
+
     @Override
     public String toString() {
         StringBuilder veiculo = new StringBuilder();
@@ -53,6 +84,13 @@ public abstract class Veiculo {
         veiculo.append("\nMODELO:            ").append(this.getModelo());
         veiculo.append("\nANO:               ").append(this.getAno());
         veiculo.append("\nPLACA:             ").append(this.getPlaca());
+        veiculo.append("\nCAPACIDADE:        ").append(this.getCapacidade());
+        veiculo.append("\nCARGA:             ").append(this.getCarga());
+        if (this.getMotorista() != null) {
+            veiculo.append("\nMOTORISTA:         ").append(this.getMotorista());
+        } else {
+            veiculo.append("\nMOTORISTA:           VEICULO SEM MOTORISTA");
+        }
 
         return String.valueOf(veiculo);
     }

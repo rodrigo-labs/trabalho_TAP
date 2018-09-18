@@ -16,8 +16,9 @@ public class VeiculoView {
                 "CADASTRO DE VEICULOS\n\n" +
                 "1 - INCLUIR\n" +
                 "2 - EXCLUIR\n" +
-                "3 - CONSULTAR\n" +
-                "4 - LISTAR\n" +
+                "3 - ADD MOTORISTA\n" +
+                "4 - CONSULTAR\n" +
+                "5 - LISTAR\n" +
                 "0 - RETORNAR\n\n" +
                 "OPÇÃO: ";
 
@@ -27,7 +28,7 @@ public class VeiculoView {
     public Veiculo incluir() {
         Veiculo veiculo;
         int opcaoVeiculo;
-        String[] options = {"VAN", "CAMINHÃO", "CARRETA"};
+        String[] opcoes = {"VAN", "CAMINHÃO", "CARRETA"};
 
         opcaoVeiculo = JOptionPane.showOptionDialog(
                 null,
@@ -36,13 +37,13 @@ public class VeiculoView {
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,
-                options,
-                options[0]
+                opcoes,
+                opcoes[0]
         );
 
-        if (opcaoVeiculo == 1) {
+        if (opcaoVeiculo == 0) {
             veiculo = new Van();
-        } else if (opcaoVeiculo == 2) {
+        } else if (opcaoVeiculo == 1) {
             veiculo = new Caminhao();
         } else {
             veiculo = new Carreta();
@@ -57,7 +58,11 @@ public class VeiculoView {
     }
 
     public String excluir() {
-        return JOptionPane.showInputDialog("Placa");
+        return consultar();
+    }
+
+    public String selecionarMotorista() {
+        return JOptionPane.showInputDialog("Nome");
     }
 
     public String consultar() {

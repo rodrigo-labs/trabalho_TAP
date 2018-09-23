@@ -1,6 +1,7 @@
 package br.com.integrador.service;
 
 import br.com.integrador.exception.HabilitacaoInvalidaException;
+import br.com.integrador.exception.NaoEncontradoException;
 import br.com.integrador.model.Motorista;
 import br.com.integrador.model.Veiculo;
 
@@ -12,7 +13,7 @@ public interface MotoristaService {
 
     List<Motorista> listar();
 
-    Motorista buscarPor(String nome);
+    Motorista buscarPor(String nome) throws NaoEncontradoException;
 
     void remover(Motorista motorista);
 

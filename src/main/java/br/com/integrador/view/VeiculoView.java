@@ -61,7 +61,7 @@ public class VeiculoView {
         return consultar();
     }
 
-    public String selecionarMotorista() {
+    public String adicionarMotorista() {
         return JOptionPane.showInputDialog("Nome");
     }
 
@@ -77,7 +77,13 @@ public class VeiculoView {
         StringBuilder lista = new StringBuilder();
 
         for (Veiculo veiculo : veiculos) {
-            lista.append("\n[").append(veiculo.getPlaca()).append("] - ").append(veiculo.getCapacidade());
+            lista.append("\nVEICULO PLACA[")
+                    .append(veiculo.getPlaca())
+                    .append("] - CAPACIDADE ")
+                    .append(veiculo.getCapacidade())
+                    .append(" - CARGA ")
+                    .append(veiculo.getCarga())
+                    .append(veiculo.getMotorista());
         }
 
         JOptionPane.showMessageDialog(null, lista.toString());

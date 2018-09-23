@@ -1,19 +1,12 @@
 package br.com.integrador;
 
-import br.com.integrador.exception.HabilitacaoInvalidaException;
-import br.com.integrador.model.Motorista;
-import br.com.integrador.model.Objeto;
-import br.com.integrador.model.Veiculo;
-import br.com.integrador.service.MotoristaService;
-import br.com.integrador.service.ObjetoService;
-import br.com.integrador.service.VeiculoService;
-import br.com.integrador.view.MotoristaView;
-import br.com.integrador.view.ObjetoView;
-import br.com.integrador.view.PrincipalView;
-import br.com.integrador.view.VeiculoView;
+import br.com.integrador.controller.MotoristaController;
+import br.com.integrador.controller.ObjetoController;
+import br.com.integrador.controller.RotaController;
+import br.com.integrador.controller.VeiculoController;
+import br.com.integrador.view.*;
 
-import javax.swing.*;
-import java.util.List;
+import javax.swing.JOptionPane;
 
 
 public class App {
@@ -23,27 +16,26 @@ public class App {
         char opcao;
 
         do {
-
             opcao = view.menu();
             switch (opcao) {
                 case '1':
-                    emitirRota();
+                    menuRota();
                     break;
 
                 case '2':
-                    cadastroObjeto();
+                    menuObjeto();
                     break;
 
                 case '3':
-                    cadastroMotorista();
+                    menuMotorista();
                     break;
 
                 case '4':
-                    cadastroVeiculo();
+                    menuVeiculo();
                     break;
 
                 case '5':
-                    exibirRelatorios();
+                    menuRelatorios();
                     break;
 
                 case '0':
@@ -57,16 +49,47 @@ public class App {
         } while (true);
     }
 
-    private static void emitirRota() {
+    private static void menuRota() {
+        RotaView view = new RotaView();
+        RotaController controller = new RotaController();
+        char opcao;
 
+        do {
+            opcao = view.menu();
+
+            switch (opcao) {
+                case '1':
+                    controller.criadorDeRotas();
+                    break;
+
+                case '2':
+
+                    break;
+                case '3':
+
+                    break;
+
+                case '4':
+
+                    break;
+
+                case '5':
+
+                    break;
+
+                case '0':
+                    break;
+
+                default:
+                    JOptionPane.showMessageDialog(null, "OPÇÃO INVALIDA!!!\n");
+                    break;
+            }
+        } while (opcao != '0');
     }
 
-    private static void cadastroObjeto() {
+    private static void menuObjeto() {
         ObjetoView view = new ObjetoView();
-        ObjetoService service = ObjetoService.getNewInstance();
-        Objeto objeto;
-        List<Objeto> objetoList;
-        String codigoVerificador;
+        ObjetoController controller = new ObjetoController();
         char opcao;
 
         do {
@@ -74,47 +97,26 @@ public class App {
 
             switch (opcao) {
                 case '1':
-                    objeto = view.incluir();
-                    service.salvar(objeto);
+                    controller.incluir();
                     break;
 
                 case '2':
-                    codigoVerificador = view.excluir();
-                    objeto = service.buscarPor(codigoVerificador);
-                    if (objeto == null) {
-                        JOptionPane.showMessageDialog(null, "OBJETO NÃO ENCONTRADO");
-                    } else {
-                        service.remover(objeto);
-                    }
+                    controller.excluir();
                     break;
-
                 case '3':
-                    codigoVerificador = view.confirmarEntrega();
-                    objeto = service.buscarPor(codigoVerificador);
-                    if (objeto == null) {
-                        JOptionPane.showMessageDialog(null, "OBJETO NÃO ENCONTRADO");
-                    } else {
-                        service.ConfirmarEntregaPor(codigoVerificador);
-                    }
+                    controller.confirmarEntrega();
                     break;
 
                 case '4':
-                    codigoVerificador = view.consultar();
-                    objeto = service.buscarPor(codigoVerificador);
-                    if (objeto == null) {
-                        JOptionPane.showMessageDialog(null, "OBJETO NÃO ENCONTRADO");
-                    } else {
-                        view.mostrar(objeto);
-                    }
+                    controller.mostrar();
                     break;
 
                 case '5':
-                    objetoList = service.listar();
-                    if (objetoList.isEmpty()) {
-                        JOptionPane.showMessageDialog(null, "NENHUM OBJETO CADASTRADO");
-                    } else {
-                        view.mostrarTodos(objetoList);
-                    }
+                    controller.listar();
+                    break;
+
+                case '6':
+                    controller.listarEntregues();
                     break;
 
                 case '0':
@@ -127,49 +129,28 @@ public class App {
         } while (opcao != '0');
     }
 
-    private static void cadastroMotorista() {
+    private static void menuMotorista() {
         MotoristaView view = new MotoristaView();
-        MotoristaService service = MotoristaService.getNewInstance();
-        Motorista motorista;
-        List<Motorista> motoristaList;
-        String nome;
+        MotoristaController controller = new MotoristaController();
         char opcao;
 
         do {
             opcao = view.menu();
             switch (opcao) {
                 case '1':
-                    motorista  = view.incluir();
-                    service.salvar(motorista);
+                    controller.incluir();
                     break;
 
                 case '2':
-                    nome = view.excluir();
-                    motorista = service.buscarPor(nome);
-                    if (motorista != null) {
-                        service.remover(motorista);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "MOTORISTA NÃO ENCONTRADO");
-                    }
+                    controller.excluir();
                     break;
 
                 case '3':
-                    nome = view.consultar();
-                    motorista = service.buscarPor(nome);
-                    if (motorista != null) {
-                        view.mostrar(motorista);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "MOTORISTA NÃO ENCONTRADO");
-                    }
+                    controller.consultar();
                     break;
 
                 case '4':
-                    motoristaList = service.listar();
-                    if (motoristaList.isEmpty()) {
-                        JOptionPane.showMessageDialog(null, "NENHUM MOTORISTA CADASTRADO");
-                    } else {
-                        view.mostrarTodos(motoristaList);
-                    }
+                    controller.listar();
                     break;
 
                 case '0':
@@ -182,15 +163,9 @@ public class App {
         } while (opcao != '0');
     }
 
-    private static void cadastroVeiculo() {
+    private static void menuVeiculo() {
         VeiculoView view = new VeiculoView();
-        VeiculoService service = VeiculoService.getNewInstance();
-        MotoristaService motoristaService = MotoristaService.getNewInstance();
-        List<Veiculo> veiculoList;
-        Veiculo veiculo;
-        Motorista motorista;
-        String placa;
-        String nome;
+        VeiculoController controller = new VeiculoController();
         char opcao;
 
         do {
@@ -198,58 +173,23 @@ public class App {
 
             switch (opcao) {
                 case '1':
-                    veiculo  = view.incluir();
-                    service.salvar(veiculo);
+                    controller.incluir();
                     break;
 
                 case '2':
-                    placa = view.excluir();
-                    veiculo = service.buscarPor(placa);
-                    if (veiculo != null) {
-                        service.remover(veiculo);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "VEICULO NÃO ENCONTRADO");
-                    }
+                    controller.excluir();
                     break;
 
                 case '3':
-                    placa = view.consultar();
-                    veiculo = service.buscarPor(placa);
-                    if (veiculo != null) {
-                        nome = view.selecionarMotorista();
-                        motorista = motoristaService.buscarPor(nome);
-                        if (motorista != null) {
-                            try {
-                                service.selecionarMotorista(motorista, veiculo);
-                            } catch (HabilitacaoInvalidaException ex) {
-                                JOptionPane.showMessageDialog(null, ex.getMessage());
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "MOTORISTA NÃO ENCONTRADO");
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "VEICULO NÃO ENCONTRADO");
-                    }
-
+                    controller.adicionarMotorista();
                     break;
 
                 case '4':
-                    placa = view.consultar();
-                    veiculo = service.buscarPor(placa);
-                    if (veiculo != null) {
-                        view.mostrar(veiculo);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "VEICULO NÃO ENCONTRADO");
-                    }
+                    controller.consultar();
                     break;
 
                 case '5':
-                    veiculoList = service.listar();
-                    if (veiculoList.isEmpty()) {
-                        JOptionPane.showMessageDialog(null, "NENHUM VEICULO CADASTRADO");
-                    } else {
-                        view.mostrarTodos(veiculoList);
-                    }
+                    controller.listar();
                     break;
 
                 case '0':
@@ -262,7 +202,7 @@ public class App {
         } while (opcao != '0');
     }
 
-    private static void exibirRelatorios() {
+    private static void menuRelatorios() {
 
     }
 }

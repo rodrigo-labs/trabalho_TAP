@@ -1,12 +1,11 @@
 package br.com.integrador.model;
 
+
 public class Rota {
 
     private int id;
     private String data;
     private Veiculo veiculo;
-
-    // ordenar lista pela capacidade do veiculo
 
 
     public int getId() {
@@ -31,5 +30,16 @@ public class Rota {
 
     public void setVeiculo(Veiculo veiculo) {
         this.veiculo = veiculo;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder rota = new StringBuilder();
+
+        rota.append("\nID:              ").append(this.getId());
+        rota.append("\nDATA:            ").append(this.getData());
+        rota.append("\nVEICULO:         ").append(this.getVeiculo());
+
+        return String.valueOf(rota);
     }
 }

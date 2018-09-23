@@ -3,20 +3,20 @@ package br.com.integrador.model;
 import br.com.integrador.exception.CargaCompletaException;
 import br.com.integrador.exception.HabilitacaoInvalidaException;
 
-public abstract class Veiculo {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class Veiculo implements Comparable<Veiculo>, Serializable {
 
     private String marca;
     private String modelo;
     private String ano;
     private String placa;
     private int capacidade;
-    private int carga;
     private Motorista motorista;
+    protected List<Objeto> carga;
 
-
-    public Veiculo() {
-        this.carga = 0;
-    }
 
     public String getMarca() {
         return marca;
@@ -58,23 +58,30 @@ public abstract class Veiculo {
         this.capacidade = capacidade;
     }
 
-    public int getCarga() {
-        return carga;
-    }
-
-    public void setCarga() throws CargaCompletaException {
-        if (this.carga < this.capacidade) {
-            this.carga++;
-        } else {
-            throw new CargaCompletaException("CARGA COMPLETA");
-        }
-    }
-
     public Motorista getMotorista() {
         return motorista;
     }
 
-    public abstract void setMotorista(Motorista motorista) throws HabilitacaoInvalidaException;
+    public void setMotorista(Motorista motorista) throws HabilitacaoInvalidaException {
+        this.motorista = motorista;
+    }
+
+    public List<Objeto> getCarga() {
+        return carga;
+    }
+
+    public int getTamanhoDaCarga() {
+        return getCarga().size();
+    }
+
+    public void setCarga(Objeto objeto) throws CargaCompletaException {
+        if (this.carga.size() < this.capacidade) {
+            ;this.carga.add(objeto);
+        } else {
+            throw new CargaCompletaException(this.placa + " - CARGA COMPLETA");
+        }
+
+    }
 
     @Override
     public String toString() {
@@ -85,7 +92,7 @@ public abstract class Veiculo {
         veiculo.append("\nANO:               ").append(this.getAno());
         veiculo.append("\nPLACA:             ").append(this.getPlaca());
         veiculo.append("\nCAPACIDADE:        ").append(this.getCapacidade());
-        veiculo.append("\nCARGA:             ").append(this.getCarga());
+        veiculo.append("\nCARGA:             ").append(this.getTamanhoDaCarga());
         if (this.getMotorista() != null) {
             veiculo.append("\nMOTORISTA:         ").append(this.getMotorista());
         } else {
@@ -93,5 +100,9 @@ public abstract class Veiculo {
         }
 
         return String.valueOf(veiculo);
+    }
+
+    public int compareTo(Veiculo outroVeiculo) {
+        return Integer.compare(this.capacidade, outroVeiculo.capacidade);
     }
 }

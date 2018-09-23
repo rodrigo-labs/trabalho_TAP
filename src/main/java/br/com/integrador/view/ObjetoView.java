@@ -1,6 +1,6 @@
 package br.com.integrador.view;
 
-import br.com.integrador.model.ObjetoSituacao;
+import br.com.integrador.model.Situacao;
 import br.com.integrador.model.Objeto;
 
 import javax.swing.*;
@@ -16,6 +16,7 @@ public class ObjetoView {
                 "3 - CONFIRMAR ENTREGA\n" +
                 "4 - CONSULTAR\n" +
                 "5 - LISTAR\n" +
+                "6 - LISTAR ENTREGUES\n" +
                 "0 - RETORNAR\n\n" +
                 "OPÇÃO: ";
 
@@ -32,7 +33,7 @@ public class ObjetoView {
         objeto.setDataDeposito(JOptionPane.showInputDialog("Data do Depósito"));
         objeto.setPeso(Float.parseFloat(JOptionPane.showInputDialog("Peso")));
         objeto.setCodigoLocalizador(JOptionPane.showInputDialog("Código Localizador"));
-        objeto.setSituacao(ObjetoSituacao.TRIAGEM);
+        objeto.setSituacao(Situacao.TRIAGEM);
 
         return objeto;
     }

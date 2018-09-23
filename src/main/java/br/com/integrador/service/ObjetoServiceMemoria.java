@@ -1,6 +1,7 @@
 package br.com.integrador.service;
 
-import br.com.integrador.model.ObjetoSituacao;
+import br.com.integrador.exception.NaoEncontradoException;
+import br.com.integrador.model.Situacao;
 import br.com.integrador.model.Objeto;
 
 import java.util.ArrayList;
@@ -10,8 +11,16 @@ public class ObjetoServiceMemoria implements ObjetoService {
 
     private static List<Objeto> objetoList = new ArrayList<>();
 
+
+    public static List<Objeto> getObjetoList() {
+        return objetoList;
+    }
+
     @Override
     public void salvar(Objeto objeto) {
+        if (objeto.getCodigoLocalizador().equalsIgnoreCase("")) {
+            objeto.setCodigoLocalizador("" + objeto.hashCode());
+        }
         objetoList.add(objeto);
     }
 
@@ -21,14 +30,14 @@ public class ObjetoServiceMemoria implements ObjetoService {
     }
 
     @Override
-    public Objeto buscarPor(String codigoLocalizador) {
+    public Objeto buscarPor(String codigoLocalizador) throws NaoEncontradoException {
         for (Objeto objeto: objetoList) {
             if (objeto.getCodigoLocalizador().equals(codigoLocalizador)) {
                 return objeto;
             }
         }
 
-        return null;
+        throw new NaoEncontradoException("OBJETO NÃO ENCONTRADO");
     }
 
     @Override
@@ -37,10 +46,10 @@ public class ObjetoServiceMemoria implements ObjetoService {
     }
 
     @Override
-    public void ConfirmarEntregaPor(String codigoLocalizador) {
+    public void ConfirmarEntregaPor(String codigoLocalizador) throws NaoEncontradoException {
         for (Objeto objeto: objetoList) {
             if (objeto.getCodigoLocalizador().equals(codigoLocalizador)) {
-                objeto.setSituacao(ObjetoSituacao.ENTREGUE);
+                objeto.setSituacao(Situacao.ENTREGUE);
             }
         }
     }

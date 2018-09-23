@@ -7,7 +7,7 @@ public class PrincipalView {
     public char menu() {
         String menu = "\nSISTEMA DE LOGISTICA\n" +
                 "MENU PRINCIPAL\n\n" +
-                "1 - EMITIR ROTA DE ENTREGA\n" +
+                "1 - MENU ROTAS\n" +
                 "2 - MENU OBJETOS\n" +
                 "3 - MENU MOTORISTAS\n" +
                 "4 - MENU VEICULOS\n" +

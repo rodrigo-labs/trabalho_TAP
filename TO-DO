@@ -1,0 +1,5 @@
+ao invés de usar um objeto para carregar as informações, usar um dict para isso.
+
+Tratar esse dict em um helper ou no próprio controller.
+
+tipo acontece no request do http

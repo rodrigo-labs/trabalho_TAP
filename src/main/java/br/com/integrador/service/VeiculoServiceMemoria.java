@@ -1,6 +1,7 @@
 package br.com.integrador.service;
 
 import br.com.integrador.exception.HabilitacaoInvalidaException;
+import br.com.integrador.exception.NaoEncontradoException;
 import br.com.integrador.model.Motorista;
 import br.com.integrador.model.Veiculo;
 
@@ -10,6 +11,11 @@ import java.util.List;
 public class VeiculoServiceMemoria implements VeiculoService {
 
     private static List<Veiculo> veiculoList = new ArrayList<>();
+
+
+    public static List<Veiculo> getVeiculoList() {
+        return veiculoList;
+    }
 
     @Override
     public void salvar(Veiculo veiculo) {
@@ -22,14 +28,14 @@ public class VeiculoServiceMemoria implements VeiculoService {
     }
 
     @Override
-    public Veiculo buscarPor(String placa) {
+    public Veiculo buscarPor(String placa) throws NaoEncontradoException {
         for (Veiculo veiculo : veiculoList) {
             if (veiculo.getPlaca().equals(placa)) {
                 return veiculo;
             }
         }
 
-        return null;
+        throw new NaoEncontradoException("VEICULO NÃO ENCONTRADO");
     }
 
     @Override
@@ -40,7 +46,7 @@ public class VeiculoServiceMemoria implements VeiculoService {
     @Override
     public void selecionarMotorista(Motorista motorista, Veiculo veiculo) throws HabilitacaoInvalidaException {
         for (Veiculo veiculoAux : veiculoList) {
-            if (veiculo.equals(veiculoAux)) {
+            if (veiculoAux.equals(veiculo)) {
                 veiculoAux.setMotorista(motorista);
             }
         }

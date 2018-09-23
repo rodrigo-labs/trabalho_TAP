@@ -9,8 +9,11 @@ public class Objeto {
     private String dataDeposito;
     private Float peso;
     private String codigoLocalizador;
-    private ObjetoSituacao situacao;
+    private Situacao situacao;
 
+
+    public Objeto() {
+    }
 
     public String getNomeRemetente() {
         return nomeRemetente;
@@ -68,12 +71,33 @@ public class Objeto {
         this.codigoLocalizador = codigoLocalizador;
     }
 
-    public ObjetoSituacao getSituacao() {
+    public Situacao getSituacao() {
         return situacao;
     }
 
-    public void setSituacao(ObjetoSituacao situacao) {
+    public void setSituacao(Situacao situacao) {
         this.situacao = situacao;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Objeto objeto = (Objeto) o;
+
+        return codigoLocalizador != null ? codigoLocalizador.equals(objeto.codigoLocalizador) : objeto.codigoLocalizador == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = nomeRemetente != null ? nomeRemetente.hashCode() : 0;
+        result = 31 * result + (enderecoRemetente != null ? enderecoRemetente.hashCode() : 0);
+        result = 31 * result + (nomeDestinatario != null ? nomeDestinatario.hashCode() : 0);
+        result = 31 * result + (enderecoDestinatario != null ? enderecoDestinatario.hashCode() : 0);
+        result = 31 * result + (dataDeposito != null ? dataDeposito.hashCode() : 0);
+        result = 31 * result + (peso != null ? peso.hashCode() : 0);
+        return result;
     }
 
     @Override
@@ -87,7 +111,7 @@ public class Objeto {
         objeto.append("\nData do Depósito:          ").append(this.getDataDeposito());
         objeto.append("\nPeso:                      ").append(this.getPeso());
         objeto.append("\nCódigo Localizador:        ").append(this.getCodigoLocalizador());
-        objeto.append("\nObjetoSituacao do objeto:          ").append(this.getSituacao());
+        objeto.append("\nSituacao do objeto:          ").append(this.getSituacao());
 
         return String.valueOf(objeto);
     }

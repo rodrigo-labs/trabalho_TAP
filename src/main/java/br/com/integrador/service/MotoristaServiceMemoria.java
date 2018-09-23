@@ -1,6 +1,7 @@
 package br.com.integrador.service;
 
 import br.com.integrador.exception.HabilitacaoInvalidaException;
+import br.com.integrador.exception.NaoEncontradoException;
 import br.com.integrador.model.Motorista;
 import br.com.integrador.model.Veiculo;
 
@@ -22,14 +23,14 @@ public class MotoristaServiceMemoria implements MotoristaService {
     }
 
     @Override
-    public Motorista buscarPor(String nome) {
+    public Motorista buscarPor(String nome) throws NaoEncontradoException {
         for (Motorista motorista : motoristaList) {
             if (motorista.getNome().equals(nome)) {
                 return motorista;
             }
         }
 
-        return null;
+        throw new NaoEncontradoException("MOTORISTA NÃO ENCONTRADO");
     }
 
     @Override

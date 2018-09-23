@@ -1,6 +1,6 @@
 package br.com.integrador.model;
 
-public enum ObjetoSituacao {
+public enum Situacao {
 
     TRIAGEM("triagem"),
     SAIU_PARA_ENTREGA("saiu para entrega"),
@@ -9,7 +9,7 @@ public enum ObjetoSituacao {
 
     private String descricao;
 
-    ObjetoSituacao(String descricao) {
+    Situacao(String descricao) {
         this.descricao = descricao;
     }
 

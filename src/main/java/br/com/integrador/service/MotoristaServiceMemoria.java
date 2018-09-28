@@ -1,9 +1,8 @@
 package br.com.integrador.service;
 
-import br.com.integrador.exception.HabilitacaoInvalidaException;
+
 import br.com.integrador.exception.NaoEncontradoException;
 import br.com.integrador.model.Motorista;
-import br.com.integrador.model.Veiculo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,5 +35,13 @@ public class MotoristaServiceMemoria implements MotoristaService {
     @Override
     public void remover(Motorista motorista) {
         motoristaList.remove(motorista);
+    }
+
+    public static List<Motorista> getMotoristaList() {
+        return motoristaList;
+    }
+
+    public static void setMotoristaList(List<Motorista> motoristaList) {
+        MotoristaServiceMemoria.motoristaList = motoristaList;
     }
 }

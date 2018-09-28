@@ -1,8 +1,9 @@
 package br.com.integrador.model;
 
-import br.com.integrador.exception.HabilitacaoInvalidaException;
 
-public class Motorista {
+import java.io.Serializable;
+
+public class Motorista implements Serializable {
 
     private String nome;
     private String endereco;

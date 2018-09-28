@@ -1,10 +1,8 @@
 package br.com.integrador.model;
 
-import br.com.integrador.exception.CargaCompletaException;
 import br.com.integrador.exception.HabilitacaoInvalidaException;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Veiculo implements Comparable<Veiculo>, Serializable {
@@ -70,17 +68,8 @@ public abstract class Veiculo implements Comparable<Veiculo>, Serializable {
         return carga;
     }
 
-    public int getTamanhoDaCarga() {
-        return getCarga().size();
-    }
-
-    public void setCarga(Objeto objeto) throws CargaCompletaException {
-        if (this.carga.size() < this.capacidade) {
-            ;this.carga.add(objeto);
-        } else {
-            throw new CargaCompletaException(this.placa + " - CARGA COMPLETA");
-        }
-
+    public void setCarga(List<Objeto> carga) {
+        this.carga = carga;
     }
 
     @Override
@@ -92,7 +81,7 @@ public abstract class Veiculo implements Comparable<Veiculo>, Serializable {
         veiculo.append("\nANO:               ").append(this.getAno());
         veiculo.append("\nPLACA:             ").append(this.getPlaca());
         veiculo.append("\nCAPACIDADE:        ").append(this.getCapacidade());
-        veiculo.append("\nCARGA:             ").append(this.getTamanhoDaCarga());
+        veiculo.append("\nCARGA:             ").append(this.getCarga().size());
         if (this.getMotorista() != null) {
             veiculo.append("\nMOTORISTA:         ").append(this.getMotorista());
         } else {

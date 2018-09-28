@@ -4,9 +4,13 @@ import br.com.integrador.controller.MotoristaController;
 import br.com.integrador.controller.ObjetoController;
 import br.com.integrador.controller.RotaController;
 import br.com.integrador.controller.VeiculoController;
+import br.com.integrador.model.Motorista;
+import br.com.integrador.service.MotoristaServiceMemoria;
+import br.com.integrador.service.Serializador;
 import br.com.integrador.view.*;
 
 import javax.swing.JOptionPane;
+import java.util.List;
 
 
 public class App {
@@ -14,6 +18,9 @@ public class App {
     public static void main( String[] args ) {
         PrincipalView view = new PrincipalView();
         char opcao;
+
+        Serializador serializador = new Serializador();
+        MotoristaServiceMemoria.setMotoristaList((List<Motorista>) serializador.descerializar("data/motorista.bin"));
 
         do {
             opcao = view.menu();
@@ -39,6 +46,7 @@ public class App {
                     break;
 
                 case '0':
+                    serializador.serializar(MotoristaServiceMemoria.getMotoristaList(), "data/motorista.bin");
                     System.exit(0);
                     break;
 

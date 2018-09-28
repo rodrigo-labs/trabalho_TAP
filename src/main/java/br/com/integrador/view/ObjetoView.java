@@ -2,6 +2,7 @@ package br.com.integrador.view;
 
 import br.com.integrador.model.Situacao;
 import br.com.integrador.model.Objeto;
+import br.com.integrador.utils.Utils;
 
 import javax.swing.*;
 import java.util.List;
@@ -30,7 +31,7 @@ public class ObjetoView {
         objeto.setEnderecoRemetente(JOptionPane.showInputDialog("Endereço do remetente"));
         objeto.setNomeDestinatario(JOptionPane.showInputDialog("Nome do Destinatário"));
         objeto.setEnderecoDestinatario(JOptionPane.showInputDialog("Endereço do Destinatário"));
-        objeto.setDataDeposito(JOptionPane.showInputDialog("Data do Depósito"));
+        objeto.setDataDeposito(Utils.dataDeHoje());
         objeto.setPeso(Float.parseFloat(JOptionPane.showInputDialog("Peso")));
         objeto.setCodigoLocalizador(JOptionPane.showInputDialog("Código Localizador"));
         objeto.setSituacao(Situacao.TRIAGEM);

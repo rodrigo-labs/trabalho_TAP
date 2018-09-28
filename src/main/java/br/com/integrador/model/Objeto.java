@@ -111,7 +111,7 @@ public class Objeto {
         objeto.append("\nData do Depósito:          ").append(this.getDataDeposito());
         objeto.append("\nPeso:                      ").append(this.getPeso());
         objeto.append("\nCódigo Localizador:        ").append(this.getCodigoLocalizador());
-        objeto.append("\nSituacao do objeto:          ").append(this.getSituacao());
+        objeto.append("\nSituacao do objeto:        ").append(this.getSituacao());
 
         return String.valueOf(objeto);
     }

@@ -1,9 +1,7 @@
 package br.com.integrador.controller;
 
-import br.com.integrador.exception.CargaCompletaException;
 import br.com.integrador.model.Objeto;
 import br.com.integrador.model.Rota;
-import br.com.integrador.model.Situacao;
 import br.com.integrador.model.Veiculo;
 import br.com.integrador.service.ObjetoServiceMemoria;
 import br.com.integrador.service.RotaServiceMemoria;
@@ -21,39 +19,35 @@ public class RotaController {
 
 
     public void criadorDeRotas() {
-        chapa();
         RotaServiceMemoria service = new RotaServiceMemoria();
+        CarregadorRota carregadorRota;
+        veiculos.sort(Comparator.reverseOrder());
 
         for (Veiculo veiculo : veiculos) {
-            if (veiculo.getCarga().size() > 0) {
-                Rota rota = new Rota();
-                rota.setId(Utils.getProximoID());
-                rota.setData(Utils.dataDeHoje());
-                rota.setVeiculo(veiculo);
+            Rota rota = new Rota();
 
+            rota.setId(Utils.getProximoID());
+            rota.setData(Utils.dataDeHoje());
+            carregadorRota = new CarregadorRota(veiculo, objetos);
+            veiculo.setCarga(carregadorRota.carrega());
+            rota.setVeiculo(veiculo);
+
+            if (veiculo.getCarga().size() > 0) {
                 service.salvar(rota);
             }
         }
     }
 
-    public void chapa() {
+    public void carregador() {
         StringBuilder lista = new StringBuilder();
         veiculos.sort(Comparator.reverseOrder());
+        CarregadorRota carregadorRota;
 
         for (Veiculo veiculo : veiculos) {
-            if (veiculo.getTamanhoDaCarga() == veiculo.getCapacidade()) {
-                for (Objeto objeto : objetos) {
-                    if (objeto.getSituacao().equals(Situacao.TRIAGEM)) {
-                        try {
-                            veiculo.setCarga(objeto);
-                            objeto.setSituacao(Situacao.SAIU_PARA_ENTREGA);
-                        } catch (CargaCompletaException e) {
-                            JOptionPane.showMessageDialog(null, e.getMessage());
-                        }
-                    }
-                }
+            if (veiculo.getCarga().isEmpty()) {
+                carregadorRota = new CarregadorRota(veiculo, objetos);
+                veiculo.setCarga(carregadorRota.carrega());
             }
-
         }
 
         for (Veiculo veiculo : veiculos) {
@@ -62,7 +56,7 @@ public class RotaController {
                     .append("] - CAPACIDADE ")
                     .append(veiculo.getCapacidade())
                     .append(" - CARGA ")
-                    .append(veiculo.getTamanhoDaCarga())
+                    .append(veiculo.getCarga().size())
                     .append(veiculo.getMotorista());
         }
 

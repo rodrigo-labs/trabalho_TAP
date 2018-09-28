@@ -3,3 +3,5 @@ ao invés de usar um objeto para carregar as informações, usar um dict para is
 Tratar esse dict em um helper ou no próprio controller.
 
 tipo acontece no request do http
+
+Colocar data postado e data recebido na class objeto

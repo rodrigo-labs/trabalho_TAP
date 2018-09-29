@@ -1,7 +1,9 @@
 package br.com.integrador.model;
 
 
-public class Rota {
+import java.io.Serializable;
+
+public class Rota implements Serializable {
 
     private int id;
     private String data;

@@ -2,7 +2,7 @@ package br.com.integrador.service;
 
 import br.com.integrador.model.Motorista;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;

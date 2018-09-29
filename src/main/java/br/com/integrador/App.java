@@ -5,8 +5,12 @@ import br.com.integrador.controller.ObjetoController;
 import br.com.integrador.controller.RotaController;
 import br.com.integrador.controller.VeiculoController;
 import br.com.integrador.model.Motorista;
+import br.com.integrador.model.Objeto;
+import br.com.integrador.model.Veiculo;
 import br.com.integrador.service.MotoristaServiceMemoria;
+import br.com.integrador.service.ObjetoServiceMemoria;
 import br.com.integrador.service.Serializador;
+import br.com.integrador.service.VeiculoServiceMemoria;
 import br.com.integrador.view.*;
 
 import javax.swing.JOptionPane;
@@ -21,6 +25,9 @@ public class App {
 
         Serializador serializador = new Serializador();
         MotoristaServiceMemoria.setMotoristaList((List<Motorista>) serializador.descerializar("data/motorista.bin"));
+        VeiculoServiceMemoria.setVeiculoList((List<Veiculo>) serializador.descerializar("data/veiculo.bin"));
+        ObjetoServiceMemoria.setObjetoList((List<Objeto>) serializador.descerializar("data/objeto.bin"));
+        // ToDo fazer o mesmo para a rota
 
         do {
             opcao = view.menu();
@@ -47,6 +54,8 @@ public class App {
 
                 case '0':
                     serializador.serializar(MotoristaServiceMemoria.getMotoristaList(), "data/motorista.bin");
+                    serializador.serializar(VeiculoServiceMemoria.getVeiculoList(), "data/veiculo.bin");
+                    serializador.serializar(ObjetoServiceMemoria.getObjetoList(), "data/objeto.bin");
                     System.exit(0);
                     break;
 

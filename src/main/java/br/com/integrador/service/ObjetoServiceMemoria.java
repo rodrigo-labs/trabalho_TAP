@@ -12,10 +12,6 @@ public class ObjetoServiceMemoria implements ObjetoService {
     private static List<Objeto> objetoList = new ArrayList<>();
 
 
-    public static List<Objeto> getObjetoList() {
-        return objetoList;
-    }
-
     @Override
     public void salvar(Objeto objeto) {
         if (objeto.getCodigoLocalizador().equalsIgnoreCase("")) {
@@ -52,5 +48,13 @@ public class ObjetoServiceMemoria implements ObjetoService {
                 objeto.setSituacao(Situacao.ENTREGUE);
             }
         }
+    }
+
+    public static List<Objeto> getObjetoList() {
+        return objetoList;
+    }
+
+    public static void setObjetoList(List<Objeto> objetoList) {
+        ObjetoServiceMemoria.objetoList = objetoList;
     }
 }

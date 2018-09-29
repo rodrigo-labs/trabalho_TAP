@@ -1,6 +1,8 @@
 package br.com.integrador.model;
 
-public class Objeto {
+import java.io.Serializable;
+
+public class Objeto  implements Serializable {
 
     private String nomeRemetente;
     private String enderecoRemetente;

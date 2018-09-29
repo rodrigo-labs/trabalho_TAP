@@ -13,10 +13,6 @@ public class VeiculoServiceMemoria implements VeiculoService {
     private static List<Veiculo> veiculoList = new ArrayList<>();
 
 
-    public static List<Veiculo> getVeiculoList() {
-        return veiculoList;
-    }
-
     @Override
     public void salvar(Veiculo veiculo) {
         veiculoList.add(veiculo);
@@ -50,5 +46,13 @@ public class VeiculoServiceMemoria implements VeiculoService {
                 veiculoAux.setMotorista(motorista);
             }
         }
+    }
+
+    public static List<Veiculo> getVeiculoList() {
+        return veiculoList;
+    }
+
+    public static void setVeiculoList(List<Veiculo> veiculoList) {
+        VeiculoServiceMemoria.veiculoList = veiculoList;
     }
 }
